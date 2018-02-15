@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>SwoleAF</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+    <div class="topnav">
+    <img src="images/logo.png" alt = "logo" width="150" height="30" style="margin-top: 5px;">
+      <a onclick="document.getElementById('id01').style.display='block'" type="button">Log In</a>
+        <a onclick="document.getElementById('id02').style.display='block'" type="button">Sign Up</a>
+        <a href="trainerpage.html">Trainer</a>
+    </div>
+    
+    <section class="introsection">
+        <div id="id01" class="modal">
+            <form class="modal-content animate">
+                          <br>
+                          <img src="images/logo.png" alt = "logo" width="140" height="30" style="margin-top: 5px; margin-left: auto; margin-right:auto; display:block;">
+                          <label class = "errorTitle" id = "errorDiv">Error</label>
+                          <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+                          <div class="container">
+                              <input type="text" style = "height: 50px; width: 100%;" placeholder="Username" id="uname" required>
+                                <br><br>
+                              <input type="password" style = "height: 50px; width: 100%;" placeholder="Password" id="psw" required>
+                                <br><br>
+                              <button type="btn" onclick= "loginUser();" class = "btn" id = "loginbtn" style = "width: 100%; margin-left: 0;">Login</button>
+                            </div>
+
+
+            </form>
+        </div>
+        <div id="id02" class="modal">
+            <form class="modal-content animate">
+                          <br>
+                          <img src="images/logo.png" alt = "logo" width="140" height="30" style="margin-top: 5px; margin-left: auto; margin-right:auto; display:block;">
+                          <label class = "errorTitle" id = "errorDiv">Error</label>
+                          <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+                          <div class="container">
+                            <input type="text" style = "width: 100%; height: 30px;" id="firstname" name = "firstName" placeholder = "First name">
+                            <br><br>
+                            <input type = "text" style = "width: 100%; height: 30px;" placeholder="Last name" id="lastname" name = "lastName">
+                            <br><br>
+                            <input type = "text" style = "width: 100%; height: 30px;" placeholder="Email/Username" id="email" name = "email">
+                            <br><br>
+                            <input type="password" style = "width: 100%; height: 30px;" placeholder="Password" id="pass" name="password">
+                            <br><br>
+                            <div class="col-xs-6">
+                            <div class ="input-group">
+                                <span class="input-group-btn">
+                                    <button class="btn" type="button" style = "width: 100%; margin-left: 0;"><span>Sign Up</span></button>
+                            </span>
+                            </div>
+                            </div>  
+                        </div>
+
+
+            </form>
+        </div>
+        <div class = "gradient">
+            <label class = "titleText"> Stay Motivated. Get Strong.</label>
+        </div>
+    </section>
+    <section class ="info-section0">
+        <div class = "info">
+        <label  class = "titleSubtext" > Effortlessly integrate workouts into your life by organizing your routines into our easy-to-use calendar. Customize your own workouts and share them with other fitness enthusiasts.</label>
+        </div>
+    </section>
+    <section class ="info-section1">
+        <label class = "info-section-header">NEVER FORGET A WORKOUT</label> 
+        <br><br>
+        <label class = "info-section-description"> Search and find any workout to add onto your routine calendar. Always keep track of new routines.</label>
+        <br>
+        <label class = "info-section-description"> Implement custom-made workouts from other users and trainers.</label>
+        <br><br><br><br><br>    
+        <img src="images/bicep-curl.png" class="info1Pics" alt = "curl" width="200" height="200">
+        <img src="images/calendar2.png" class="info1Pics" alt = "calendar" width="200" height="200">
+        <img src="images/deadlift.png" class="info1Pics" alt = "deadlift" width="200" height="200">
+    
+    </section>
+    <section class ="info-section2">
+        <label class = "info-section-header" style ="color: #fff;">STATISTICAL REPORTS ON YOUR ROUTINES</label> 
+        <br><br>
+        <label class = "info-section-description" style ="color: #fff;"> See reports on total number of different workouts done, with stats on total volume of each workout.</label>
+        <br>
+        <label class = "info-section-description" style ="color: #fff;"> Data is always presented in an easy and understandable format.</label>
+        <br><br><br><br><br>    
+        <img src="images/graph.png" class="info2Pics" alt = "graph" width="200" height="200">
+        <img src="images/datatable.png" class="info2Pics" alt = "table" width="200" height="200">
+    
+    </section>
+    <script src="index.js"></script>
+</body>
+</html>
