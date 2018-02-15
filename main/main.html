@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>SwoleAF</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+
+</head>
+<body>
+    <div class="topnav">
+        <img src="../images/logo.png" alt = "logo" width="150" height="30" style="margin-top: 5px; display: block; margin-left:auto; margin-right:auto;">
+    </div>
+    <div class="sidenav">
+        <div class = "row"><label class = "name"> John Smith</label></div>
+        <br>
+        <img src="../images/avatar.png" class="avatar" alt = "avatar" width="80" height="80">
+        <br><br>
+      <a href="#" class="sidelist active" id="calendarTab"><img src="../images/calendar.png" alt = "calendar" class ="sideIcon" width="15" height="15" onclick="switchDiv(0)">Calendar</a>
+      <a href="#" class="sidelist" id="statTab"><img src="../images/graph.png" alt = "graph"  class ="sideIcon" width="15" height="15" onclick="switchDiv(1)">Stats</a>
+      <a href="#" class="sidelist" id="workTab"><img src="../images/deadlift-white.png" alt = "workout"  class ="sideIcon" width="15" height="15" onclick="switchDiv(2)">Workouts</a>
+      <a href="#" class="sidelist" id="settingsTab"><img src="../images/setting.png" alt = "setting"  class ="sideIcon" width="15" height="15" onclick="switchDiv(3)">Settings</a>
+    </div>
+    
+    <div id="main">
+        <div id="id01" class="modal">
+            <form class="modal-content animate">
+                          <br>
+                          <img src="../images/logo.png" alt = "logo" width="140" height="30" style="margin-top: 5px; margin-left: auto; margin-right:auto; display:block;">
+                          <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+                          <div class="container">
+                              <select class = "workoutType" id="workoutTypes">
+                                  <option selected disabled>Choose Workout Type</option>
+                                  <option value="abs">Abs</option>
+                                  <option value="back">Back</option>
+                                  <option value="bicep">Bicep</option>
+                                  <option value="chest">Chest</option>
+                                  <option value="legs">Legs</option>
+                                  <option value="shoulders">Shouders</option>
+                                  <option value="triceps">Triceps</option>
+                            </select>
+                              <br><br>
+                              <select class = "workoutType" id = "workout">
+                                  <option selected disabled>Choose Workout:</option>
+                            </select>
+                              <br>
+                              <br>
+                              <button type="button" onclick= "addtoList()" class = "btn" id = "addbtn" style = "width: 100%;">Add</button>
+                            </div>
+
+
+            </form>
+        </div>
+        <div id="calendar">
+            <ul class = "Monday">
+                <p class = "ulTitle">Monday</p>
+                <li class = "bicep">Dumbell Curl
+                <img src="../images/delete.png" class="delete" alt = "delete" onclick="flagDelete(this)">
+                </li>
+                <li class = "bicep">Hammer Curl
+                <img src="../images/delete.png" class="delete" alt = "delete" onclick="flagDelete(this)">
+                </li>
+                <li class = "bicep">Barbell Curl
+                <img src="../images/delete.png" class="delete" alt = "delete" onclick="flagDelete(this)">
+                </li>
+                <img src="../images/add.png" class="add" alt = "add" onclick="flag(this);">
+            </ul>
+            <ul class = "Tuesday">
+                <p class = "ulTitle">Tuesday</p>
+                <li class = "leg">Leg Press
+                <img src="../images/delete.png" class="delete" alt = "delete" onclick="flagDelete(this)">
+                </li>
+                <li class = "leg">Squat
+                <img src="../images/delete.png" class="delete" alt = "delete" onclick="flagDelete(this)">
+                </li>
+                <li class = "leg">Lunges
+                <img src="../images/delete.png" class="delete" alt = "delete" onclick="flagDelete(this)">
+                </li>
+                <img src="../images/add.png" class="add" alt = "add" onclick="flag(this);">
+            </ul>
+            <ul class = "Wednesday">
+                <p class = "ulTitle">Wednesday</p>
+                <li class = "back">Lat Pulldown
+                <img src="../images/delete.png" class="delete" alt = "delete" onclick="flagDelete(this)">
+                </li>
+                <li class = "back">Row
+                <img src="../images/delete.png" class="delete" alt = "delete" onclick="flagDelete(this)">
+                </li>
+                <li class = "back">Deadlift
+                <img src="../images/delete.png" class="delete" alt = "delete" onclick="flagDelete(this)">
+                </li>
+                <img src="../images/add.png" class="add" alt = "add" onclick="flag(this);">
+            </ul>
+            <ul class = "Thursday">
+                <p class = "ulTitle">Thursday</p>
+                <li class = "abs">Leg raises
+                <img src="../images/delete.png" class="delete" alt = "delete" onclick="flagDelete(this)">
+                </li>
+                <li class = "abs">Russian Twists
+                <img src="../images/delete.png" class="delete" alt = "delete" onclick="flagDelete(this)">
+                </li>
+                <li class = "abs">Hanging Leg Raises
+                <img src="../images/delete.png" class="delete" alt = "delete" onclick="flagDelete(this)">
+                </li>
+                <img src="../images/add.png" class="add" alt = "add" onclick="flag(this);">
+            </ul>
+            <ul class = "Friday">
+                <p class = "ulTitle">Friday</p>
+                <img src="../images/add.png" class="add" alt = "add" onclick="flag(this);">
+            </ul>
+            <ul class = "Saturday">
+                <p class = "ulTitle">Saturday</p>
+                <li class = "chest">Bench Press
+                <img src="../images/delete.png" class="delete" alt = "delete" onclick="flagDelete(this)">
+                </li>
+                <li class = "chest">Decline Press
+                <img src="../images/delete.png" class="delete" alt = "delete" onclick="flagDelete(this)">
+                </li>
+                <li class = "chest">Incline Press
+                <img src="../images/delete.png" class="delete" alt = "delete" onclick="flagDelete(this)">
+                </li>
+                <img src="../images/add.png" class="add" alt = "add" onclick="flag(this);">
+            </ul>
+            <ul class = "Sunday">
+                <p class = "ulTitle">Sunday</p>
+                <li class = "shoulder">Shoulder Press
+                <img src="../images/delete.png" class="delete" alt = "delete" onclick="flagDelete(this)">
+                </li>
+                <li class = "shoulder">Shoulder raises
+                <img src="../images/delete.png" class="delete" alt = "delete" onclick="flagDelete(this)">
+                </li>
+                <li class = "shoulder">Front Shoulder raises
+                <img src="../images/delete.png" class="delete" alt = "delete" onclick="flagDelete(this)">
+                </li>
+                <img src="../images/add.png" class="add" alt = "add" onclick="flag(this);">
+            </ul>
+
+        </div>
+        <div id="stats">
+            <div class="wrapper">
+                <div id="piechart"></div>
+            </div>
+        </div>
+    
+        <div id="workouts"></div>
+        <div id="settings"></div>
+    </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="main.js"></script>
+    </body>
+</html>
