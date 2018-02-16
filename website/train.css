@@ -1,0 +1,78 @@
+body{
+    margin: 0;
+    background-color: #000;
+}
+.topnav{
+    width: 100%;
+    height: 50px;
+    background-color: #fcfaf8;
+    border-bottom: 0.1px solid #4fc7fd;
+    position: fixed;
+}
+.topnav a {
+  float: right;
+  color: #4fc7fd;
+  text-align: center;
+  padding-top: 14px;
+  margin-right: 20px;
+  text-decoration: none;
+  font-family: 'AvenirNext','Helvetica Neue',Arial,Helvetica,sans-serif;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+    border-bottom: 3px solid #92dcfe;
+    border-bottom-width: 2.5px;
+    cursor: pointer;
+    
+}
+.textLeft{
+    height: 100%;
+    width: 50%;
+    text-align: center;
+    float: left;
+    padding-top: 100px;
+}
+.trainInfo{
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 3vw;
+    color: #fff;
+}
+.trainSub{
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    font-size: 2vw;
+}
+.sub{
+    height: auto;
+    width: 400px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.picRight{
+    height: 655px;
+    width: 50%;
+    float: right;
+    background-image: url(images/trainer.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+.btn{
+    font-size: 12px; 
+    margin-left: auto;
+    margin-right: auto;
+    color: white ;
+    width: auto;
+    height: 35px;
+    background-color: transparent;
+    border: 3px solid #fff;
+    border-radius: 5px;
+    display: block;
+    
+}
+.btn:hover{
+    border-color: #92dcfe;
+    color: #92dcfe;
+    cursor: pointer;
+}
