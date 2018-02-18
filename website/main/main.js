@@ -1,5 +1,6 @@
 var ul;
 var li;
+var workout;
 var classname;
 var bicepBool;
 var tricepBool;
@@ -22,7 +23,7 @@ var thursdayVolume = [0,0,0,0,0,0];
 var fridayVolume = [0,0,0,0,0,0];
 var saturdayVolume = [2300,0,0,0,0,0];
 var sundayVolume = [0,0,0,0,980,0];
-var chestArray = ["Dumbbell Bench Press","Decline Dumbbell Bench Press", " Incline Dumbbell Bench Press", "Pushups", "Dumbbell Flyes", "Incline Dumbbell Press", "Low Cable Crossover", "Decline Dumbbell Flyes", "Dips - Chest Version", "Barbell Bench Press", "Decline Barbell Bench Press","Incline Barbell Bench Press", "Cable Crossover", "Smith Machine Bench Press", "Front Raise And Pullover", "Incline Dumbbell Flyes - With A Twist"];
+var chestArray = ["Dumbbell Bench Press","Decline Dumbbell Bench Press", " Incline Dumbbell Bench Press", "Pushups", "Dumbbell Flyes", "Incline Dumbbell Press", "Low Cable Crossover", "Decline Dumbbell Flyes", "Dips - Chest Version", "Barbell Bench Press", "Decline Barbell Bench Press","Incline Barbell Bench Press", "Cable Crossover", "Smith Machine Bench Press", "Front Raise And Pullover", "Incline Dumbbell Flyes -Twist"];
 var absArray = ["Leg Raises", "Flutter Kicks", "Plank", "Side Planks", "Russian Twists", "Hanging Leg Raises", "Weighted Sit Up", "Ab Wheel Rollout"];
 var backArray = ["Lat Pulldown", "Rows", "Deadlifts", "Single Arm Row", "Bent-over Row"];
 var bicepArray = ["Bicep Curl", "Hammer Curl", "Decline Curl", "Straight Barbell Curl", "Chinups"];
@@ -46,9 +47,14 @@ function initWorkouts(){
        im.setAttribute('onerror', "this.src='../Workouts/imagenotfound.png'");
        im.setAttribute("class", "slidePic");
        im.setAttribute("alt", chestArray[i])
+       var im2 = document.createElement("IMG");
+       im2.setAttribute('src', '../images/add.png');
+       im2.setAttribute("class", "addPic");
+       im2.setAttribute("onclick", "addPic(this)");
        li.appendChild(im);
+       li.appendChild(im2);
        var lab = document.createElement("LABEL");
-       lab.innerHTML = "<br /> "+"<br /> "+chestArray[i];
+       lab.innerHTML = "<br /> "+chestArray[i];
        li.appendChild(lab);
        chestS.appendChild(li);
    }
@@ -59,9 +65,14 @@ function initWorkouts(){
         im.setAttribute('onerror', "this.src='../Workouts/imagenotfound.png'");
        im.setAttribute("class", "slidePic");
        im.setAttribute("alt", backArray[i])
+       var im2 = document.createElement("IMG");
+       im2.setAttribute('src', '../images/add.png');
+       im2.setAttribute("class", "addPic");
+       im2.setAttribute("onclick", "addPic(this)");
        li.appendChild(im);
+       li.appendChild(im2);
        var lab = document.createElement("LABEL");
-       lab.innerHTML = "<br /> "+"<br /> "+backArray[i];
+       lab.innerHTML = "<br /> "+backArray[i];
        li.appendChild(lab);
        backS.appendChild(li);
    }
@@ -72,9 +83,14 @@ function initWorkouts(){
         im.setAttribute('onerror', "this.src='../Workouts/imagenotfound.png'");
        im.setAttribute("class", "slidePic");
        im.setAttribute("alt", bicepArray[i])
+       var im2 = document.createElement("IMG");
+       im2.setAttribute('src', '../images/add.png');
+       im2.setAttribute("class", "addPic");
+       im2.setAttribute("onclick", "addPic(this)");
        li.appendChild(im);
+       li.appendChild(im2);
        var lab = document.createElement("LABEL");
-       lab.innerHTML = "<br /> "+"<br /> "+bicepArray[i];
+       lab.innerHTML = "<br /> "+bicepArray[i];
        li.appendChild(lab);
        bicepS.appendChild(li);
    }
@@ -85,9 +101,14 @@ function initWorkouts(){
         im.setAttribute('onerror', "this.src='../Workouts/imagenotfound.png'");
        im.setAttribute("class", "slidePic");
        im.setAttribute("alt", tricepArray[i])
+       var im2 = document.createElement("IMG");
+       im2.setAttribute('src', '../images/add.png');
+       im2.setAttribute("class", "addPic");
+       im2.setAttribute("onclick", "addPic(this)");
        li.appendChild(im);
+       li.appendChild(im2);
        var lab = document.createElement("LABEL");
-       lab.innerHTML = "<br /> "+"<br /> "+tricepArray[i];
+       lab.innerHTML = "<br /> "+tricepArray[i];
        li.appendChild(lab);
        tricepS.appendChild(li);
    }
@@ -98,9 +119,14 @@ function initWorkouts(){
         im.setAttribute('onerror', "this.src='../Workouts/imagenotfound.png'");
        im.setAttribute("class", "slidePic");
        im.setAttribute("alt", shoulderArray[i])
+       var im2 = document.createElement("IMG");
+       im2.setAttribute('src', '../images/add.png');
+       im2.setAttribute("class", "addPic");
+       im2.setAttribute("onclick", "addPic(this)");
        li.appendChild(im);
+       li.appendChild(im2);
        var lab = document.createElement("LABEL");
-       lab.innerHTML = "<br /> "+"<br /> "+shoulderArray[i];
+       lab.innerHTML = "<br /> "+shoulderArray[i];
        li.appendChild(lab);
        shoulderS.appendChild(li);
    }
@@ -111,9 +137,14 @@ function initWorkouts(){
         im.setAttribute('onerror', "this.src='../Workouts/imagenotfound.png'");
        im.setAttribute("class", "slidePic");
        im.setAttribute("alt", legsArray[i])
+       var im2 = document.createElement("IMG");
+       im2.setAttribute('src', '../images/add.png');
+       im2.setAttribute("class", "addPic");
+       im2.setAttribute("onclick", "addPic(this)");
        li.appendChild(im);
+       li.appendChild(im2);
        var lab = document.createElement("LABEL");
-       lab.innerHTML = "<br /> "+"<br /> "+legsArray[i];
+       lab.innerHTML = "<br /> "+legsArray[i];
        li.appendChild(lab);
        legS.appendChild(li);
    }
@@ -124,9 +155,14 @@ function initWorkouts(){
         im.setAttribute('onerror', "this.src='../Workouts/imagenotfound.png'");
        im.setAttribute("class", "slidePic");
        im.setAttribute("alt", absArray[i])
+       var im2 = document.createElement("IMG");
+       im2.setAttribute('src', '../images/add.png');
+       im2.setAttribute("class", "addPic");
+       im2.setAttribute("onclick", "addPic(this)");
        li.appendChild(im);
+       li.appendChild(im2);
        var lab = document.createElement("LABEL");
-       lab.innerHTML = "<br /> "+"<br /> "+absArray[i];
+       lab.innerHTML = "<br /> "+absArray[i];
        li.appendChild(lab);
        abS.appendChild(li);
    }
@@ -146,7 +182,7 @@ function addtoList() {
     
     document.getElementById('id01').style.display="none";
     var e = document.getElementById("workout");
-    var workout =  e.options[e.selectedIndex].text;
+    workout =  e.options[e.selectedIndex].text;
     var li = document.createElement("li");
     li.appendChild(document.createTextNode(workout));
     var im = document.createElement("IMG");
@@ -166,6 +202,45 @@ function addtoList() {
     $("#repVal").val('');
     $("#weightVal").val('');
     $("#workoutTypes").prop('selectedIndex', 0);
+}
+function addPic(pic){
+    classname = pic.parentNode.parentNode.parentNode.childNodes[1].innerText.toLowerCase();
+    workout = pic.parentNode.childNodes[2].innerText;
+    document.getElementById('id02').style.display="block";
+    var lab = document.getElementById('addTitle');
+    lab.innerText = workout;
+}
+function addtoCalendar(){
+     var sets = parseInt(document.getElementById("setVal2").value);
+    var reps = parseInt(document.getElementById("repVal2").value);
+    var weight = parseInt(document.getElementById("weightVal2").value);
+    var volume = 0;
+    if(isNaN(weight)){
+        console.log("here");
+        volume = sets*reps;
+    }else{
+        volume = sets*reps*weight;
+    }
+    
+    document.getElementById('id02').style.display="none";
+    var e = document.getElementById("days");
+    var day =  e.options[e.selectedIndex].text;
+    ul = document.getElementById(day);
+    console.log(ul);
+    var li = document.createElement("li");
+    li.appendChild(document.createTextNode(workout));
+    var im = document.createElement("IMG");
+    im.setAttribute('src', '../images/delete.png');
+    im.setAttribute("class", "delete");
+    im.setAttribute("onclick", "flagDelete(this)");
+    li.setAttribute("class", classname);
+    li.setAttribute("data-volume", volume.toString());
+    li.appendChild(im);
+    ul.insertBefore(li, ul.childNodes[2]);
+    
+    addVolume(volume, true);
+    $('#days').prop('selectedIndex', 0);
+    $("#infoBox").hide();
 }
 function addVolume(volume, add){
     var day = ul.className;
@@ -207,7 +282,6 @@ function addVolume(volume, add){
                 mondayVolume[5] -= volume;
             }
         }
-        console.log(mondayVolume);
     }else if(day === "Tuesday"){
         if(classname == "chest"){
             if(add === true){
@@ -696,7 +770,7 @@ var data = google.visualization.arrayToDataTable([
                  legendTextStyle: { color: '#FFF',fontName: 'Arial Black', fontSize: '20' },
                  titleTextStyle: { color: '#FFF',fontName: 'Arial Black',  fontSize: '30' },
                  chartArea: {fontFamily: 'Arial Black'},
-                 colors: ['#F22613', '#00E640', '#f44242', '#ffe100', '#ad3bcd', '#F89406', '#18dcff']
+                 colors: ['#F22613', '#00E640', '#f44242', '#ffe100', '#ad3bcd', '#f5673f', '#18dcff']
                 };
 
   // Display the chart inside the <div> element with id="piechart"
@@ -731,7 +805,7 @@ function drawBarChart(){
             {color: '#F22613'},
             {color: '#00E640'},
             {color: '#ffe100'},
-            {color: '#F89406'},
+            {color: '#f5673f'},
             {color: '#ad3bcd'},
             {color: '#f44242'}
         ]

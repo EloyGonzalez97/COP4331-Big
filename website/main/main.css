@@ -69,7 +69,7 @@ body{
     visibility: hidden;
     position: absolute;
 	width: 3em;
-    margin-top: -250px;
+    margin-top: -350px;
     right: 0;
 }
 .add{
@@ -125,18 +125,19 @@ body{
 }
 #settings{
     display: none;
-    background-color: #f5673f;
+    width: 90%;
 }
 .slideTitle{
     font-family: "Arial Black", Gadget, sans-serif;
-    font-size: 20px;
+    font-size: 25px;
+    margin-left: 70px;
     color: #e8e8e8;
 }
 ul{
     margin-top: -5px;
     margin-right: 1px;
     float: left;
-    width: 12.5%;
+    width: 12.8%;
     height: auto;
     display: block;
     text-align: center;
@@ -180,7 +181,7 @@ li{
     background-color: #ad3bcd;
 }
 [class*="leg"]{
-    background-color: #F89406;
+    background-color: #f5673f;
 }
 [class*="back"]{
     background-color: #ffe100;
@@ -191,16 +192,24 @@ li{
 [class*="slides"]{
     width: 100%;
     height: 100px;
-    margin-bottom: 300px;
-    margin-left: -100px;
+    margin-bottom: 350px;
+    margin-left: -150px;
+}
+.addPic{
+    height: 20px;
+    width: 20px;
+    margin-top: -30px;
+    margin-left: -20px;
+    opacity: 0;
 }
 .slidecontainer{
     list-style: none;
     width: auto;
-    height: 350px;
+    height: 450px;
     white-space:nowrap;
     overflow-x: scroll;
     float: none;
+    padding-left: 70px;
     margin-top: 0;
     box-shadow: 0 0 10px 0 rgba(0,0,0,.0);
 }
@@ -215,7 +224,12 @@ li{
     margin-right: 20px;
 }
 .slidecontainer li:hover{
-    transform: scale(1.1);
+    transform: scale(1.4);
+    opacity: 1;
+}
+.slidecontainer li:hover .addPic{
+    transform: scale(1.4);
+    opacity: 1;
 }
 .slidePic{
     margin-bottom: 10px;
@@ -223,15 +237,29 @@ li{
     width: 250px;
     box-shadow: 0 0 10px 0 rgba(0,0,0,.5);
 }
-.workoutType{
+select{
     width: 100%;
     height: 30px;
     
+}
+#addTitle{
+    width: 100%;
+    text-align: center;
+    font-family: "Arial black", sans-serif;
+    display: block;
+    margin-top: -20px;
+    margin-bottom: 10px;
 }
 .infoInput{
     width: 50px;
 }
 .infoBox{
+    text-align: center;
+}
+.account{
+    width: 100%;
+    border-bottom: 0.5px solid #8c8c8c;
+    height: 500px;
     text-align: center;
 }
 .wrapper{
