@@ -15,7 +15,8 @@
       <a href="#" class="sidelist active" id="calendarTab"><img src="../images/calendar.png" alt = "calendar" class ="sideIcon" width="15" height="15" onclick="switchDiv(0)">Calendar</a>
       <a href="#" class="sidelist" id="statTab"><img src="../images/graph.png" alt = "graph"  class ="sideIcon" width="15" height="15" onclick="switchDiv(1)">Stats</a>
       <a href="#" class="sidelist" id="workTab"><img src="../images/deadlift-white.png" alt = "workout"  class ="sideIcon" width="15" height="15" onclick="switchDiv(2)">Workouts</a>
-      <a href="#" class="sidelist" id="settingsTab"><img src="../images/setting.png" alt = "setting"  class ="sideIcon" width="15" height="15" onclick="switchDiv(3)">Settings</a>
+    <a href="#" class="sidelist" id="routineTab"><img src="../images/routine.png" alt = "routine"  class ="sideIcon" width="15" height="15" onclick="switchDiv(3)">Routines</a>
+      <a href="#" class="sidelist" id="settingsTab"><img src="../images/setting.png" alt = "setting"  class ="sideIcon" width="15" height="15" onclick="switchDiv(4)">Settings</a>
     </div>
     <div class="topnav">
         <img src="../images/logo.png" alt = "logo" width="150" height="30" style="margin-top: 5px; display: block; margin-left:auto; margin-right:auto;">
@@ -25,7 +26,7 @@
             <form class="modal-content animate">
                           <br>
                           <img src="../images/logo.png" alt = "logo" width="140" height="30" style="margin-top: 5px; margin-left: auto; margin-right:auto; display:block;">
-                          <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+                          <span onclick="resetForm();" class="close" title="Close Modal">&times;</span>
                           <div class="container">
                               <select class = "workoutType" id="workoutTypes">
                                   <option selected disabled>Choose Workout Type</option>
@@ -42,11 +43,24 @@
                                   <option selected disabled>Choose Workout:</option>
                             </select>
                               <br>
+                              <div id = "check" class="check">
+                                  <input type="radio" name="sets" id= "radioBtn" value="multiple" onclick="showInfo(true);">Varying Sets
+                                  <input type="radio" name="sets" id= "radioBtn" value="same" onclick="showInfo(false);">Same Sets
+                              </div>
                               <br>
                               <div class = "infoBox" id = "infoBox">
                                   <label>Sets:</label><input type="text" class = "infoInput" id="setVal">
                                   <label>Reps:</label><input type="text" class = "infoInput" id="repVal">
                                   <label>Weight:</label><input type="text" class = "infoInput" id="weightVal">
+                              </div>
+                              <div class = "infoBox" id = "infoBox2">
+                                  <img src="../images/add.png" alt = "add"  class ="addSet" width="20" height="20" onclick="addSet()" >
+                                  <label style = "float:right">Add Set</label>
+                                  <br>
+                                  <br>
+                                  <div class = "setInfo" id = "setInfo">
+                                      
+                                  </div>
                               </div>
                               <br>
                               <button type="button" onclick= "addtoList()" class = "btn" id = "addbtn" style = "width: 100%;">Add</button>
@@ -163,6 +177,20 @@
                 <ul id="chstSlides" class = "slidecontainer"></ul>
                 <img class = "arrowR" src = "../images/arrow-right.png">
                 </div>
+                <div class = "wrkDescription" id = "wrkDescription">
+                    <span onclick="removeDescription(this);" class="close" style="margin-top: 0px; color:#fff;" title="Close Modal">&times;</span>
+                    <div class = "pickedInfo" id = "pickedInfo">
+                        <label class = "pickedTitle"></label>
+                        <br>
+                        <br>
+                        <br>
+                        <p id = "pickedDescription">At distant inhabit amongst by. Appetite welcomed interest the goodness boy not. Estimable education for disposing pronounce her. John size good gay plan sent old roof own. Inquietude saw understood his friendship frequently yet. Nature his marked ham wished.</p>
+                        
+                    </div>
+                    <div class = "instruction" id = "instruction">
+                        
+                    </div>
+                </div>
             </div>
             <div class = "bckWorkouts-slides" id = "bckWorkouts">
                 <div class = "slideWrapper">
@@ -170,37 +198,103 @@
                 <ul id="bckSlides" class = "slidecontainer"></ul>
                 <img class = "arrowR" src = "../images/arrow-right.png">
                 </div>
+                <div class = "wrkDescription" id = "wrkDescription">
+                    <span onclick="removeDescription(this);" class="close" style="margin-top: 0px; color:#fff;" title="Close Modal">&times;</span>
+                    <div class = "pickedInfo" id = "pickedInfo">
+                        <label class = "pickedTitle"></label>
+                        <p id = "pickedDescription"></p>
+                    </div>
+                    <div class = "instruction" id = "instruction">
+                </div>
+            </div>
             </div>
             <div class = "bcpWorkouts-slides" id = "bcpWorkouts">
+                <div class = "slideWrapper">
                 <label class = "slideTitle" >Bicep</label>
                 <ul id="bcpSlides" class = "slidecontainer"></ul>
                 <img class = "arrowR" src = "../images/arrow-right.png">
+                </div>
+                <div class = "wrkDescription" id = "wrkDescription">
+                    <span onclick="removeDescription(this);" class="close" style="margin-top: 0px; color:#fff;" title="Close Modal">&times;</span>
+                    <div class = "pickedInfo" id = "pickedInfo">
+                        <label class = "pickedTitle"></label>
+                        <p id = "pickedDescription"></p>
+                    </div>
+                    <div class = "instruction" id = "instruction">
+                    </div>
+                </div>
             </div>
             <div class = "lgsWorkouts-slides" id = "lgsWorkouts">
+                <div class = "slideWrapper">
                 <label class = "slideTitle" >Legs</label>
                 <ul id="lgsSlides" class = "slidecontainer"></ul>
                 <img class = "arrowR" src = "../images/arrow-right.png">
+                </div>
+                <div class = "wrkDescription" id = "wrkDescription">
+                    <span onclick="removeDescription(this);" class="close" style="margin-top: 0px; color:#fff;" title="Close Modal">&times;</span>
+                    <div class = "pickedInfo" id = "pickedInfo">
+                        <label class = "pickedTitle"></label>
+                        <p id = "pickedDescription"></p>
+                    </div>
+                    <div class = "instruction" id = "instruction">
+                    </div>
+                </div>
             </div>
             <div class = "abWorkouts-slides" id = "abWorkouts">
+                <div class = "slideWrapper">
                 <label class = "slideTitle" >Abs</label>
                 <ul id="abSlides" class = "slidecontainer"></ul>
                 <img class = "arrowR" src = "../images/arrow-right.png">
+                </div>
+                <div class = "wrkDescription" id = "wrkDescription">
+                    <span onclick="removeDescription(this);" class="close" style="margin-top: 0px; color:#fff;" title="Close Modal">&times;</span>
+                    <div class = "pickedInfo" id = "pickedInfo">
+                        <label class = "pickedTitle"></label>
+                        <p id = "pickedDescription"></p>
+                    </div>
+                    <div class = "instruction" id = "instruction">
+                    </div>
+                </div>
             </div>
             <div class = "shldWorkouts-slides" id = "shldWorkouts">
+                <div class = "slideWrapper">
                 <label class = "slideTitle" >Shoulders</label>
                 <ul id="shldSlides" class = "slidecontainer"></ul>
                 <img class = "arrowR" src = "../images/arrow-right.png">
+                </div>
+                <div class = "wrkDescription" id = "wrkDescription">
+                    <span onclick="removeDescription(this);" class="close" style="margin-top: 0px; color:#fff;" title="Close Modal">&times;</span>
+               
+                    <div class = "pickedInfo" id = "pickedInfo">
+                        <label class = "pickedTitle"></label>
+                        <p id = "pickedDescription"></p>
+                    </div>
+                    <div class = "instruction" id = "instruction">
+                    </div>
+                </div>
             </div>
             <div class = "tcpWorkouts-slides" id = "tcpWorkouts">
+                <div class = "slideWrapper">
                 <label class = "slideTitle" >Tricep</label>
                 <ul id="tcpSlides" class = "slidecontainer"></ul>
                 <img class = "arrowR" src = "../images/arrow-right.png">
+                </div>
+                <div class = "wrkDescription" id = "wrkDescription">
+                    <span onclick="removeDescription(this);" class="close" style="margin-top: 0px; color:#fff;" title="Close Modal">&times;</span>
+               
+                    <div class = "pickedInfo" id = "pickedInfo">
+                        <label class = "pickedTitle"></label>
+                        <p id = "pickedDescription"></p>
+                    </div>
+                    <div class = "instruction" id = "instruction">
+                    </div>
+                </div>
             </div>
             <div id="id02" class="modal">
             <form class="modal-content animate">
                           <br>
                           <img src="../images/logo.png" alt = "logo" width="140" height="30" style="margin-top: 5px; margin-left: auto; margin-right:auto; display:block;">
-                          <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+                          <span onclick="resetForm();" class="close" title="Close Modal">&times;</span>
                           <div class="container">
                               <label id = "addTitle"></label>
                               <select class = "day" id="days">
@@ -214,10 +308,24 @@
                                   <option value="Sunday">Sunday</option>
                             </select>
                               <br><br>
-                              <div class = "infoBox" id = "infoBox">
-                                  <label>Sets:</label><input type="text" class = "infoInput" id="setVal2">
-                                  <label>Reps:</label><input type="text" class = "infoInput" id="repVal2">
-                                  <label>Weight:</label><input type="text" class = "infoInput" id="weightVal2">
+                              <div id = "checkB" class="check">
+                                  <input type="radio" name="sets" id= "radioBtn" value="multiple" onclick="showInfoCal(true);">Varying Sets
+                                  <input type="radio" name="sets" id= "radioBtn" value="same" onclick="showInfoCal(false);">Same Sets
+                              </div>
+                              <br>
+                              <div class = "infoBox" id = "infoBoxB">
+                                  <label>Sets:</label><input type="text" class = "infoInput" id="setVal">
+                                  <label>Reps:</label><input type="text" class = "infoInput" id="repVal">
+                                  <label>Weight:</label><input type="text" class = "infoInput" id="weightVal">
+                              </div>
+                              <div class = "infoBox" id = "infoBox2B">
+                                  <img src="../images/add.png" alt = "add"  class ="addSet" width="20" height="20" onclick="addSetCal()" >
+                                  <label style = "float:right">Add Set</label>
+                                  <br>
+                                  <br>
+                                  <div class = "setInfo" id = "setInfo">
+                                      
+                                  </div>
                               </div>
                               <br>
                               <button type="button" onclick= "addtoCalendar()" class = "btn" id = "addbtn" style = "width: 100%;">Add</button>
@@ -226,6 +334,9 @@
 
             </form>
         </div>
+        </div>
+        <div id="routines">
+        
         </div>
         <div id="settings">
             <div class = "account" id = "accountInfo"> </div>
@@ -236,5 +347,6 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="main.js"></script>
+    <script src="https://apis.google.com/js/client.js?onload=init"></script>
     </body>
 </html>

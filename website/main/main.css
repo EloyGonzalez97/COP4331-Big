@@ -1,10 +1,15 @@
 body{
     margin: 0;
-     background-color: #1f1f1f;
+     background-color: #141414;
     overflow-x: hidden;
+  /*background: url(../images/back.png) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;*/
 }
 .topnav{
-    background-color: #000;
+    background-color: rgba(0,0,0,1);
     z-index: 100;
     width: 100%;
     position: absolute;
@@ -23,14 +28,14 @@ body{
     float: left;
     padding-top: 80px;
     margin-top: -80px;
-    background-color: #1a1a1a;
+    background-color: rgba(26, 26, 26, 1);
     overflow-x: hidden;
     box-shadow: 0 0 10px 0 rgba(0,0,0,.2);
 }
 .sidenav a {
     text-decoration: none;
     font-size: 25px;
-    color: #8c8c8c;
+    color: #fff; /*#8c8c8c;*/
     display: block;
     padding-left: 5px;
     padding-bottom: 4px;
@@ -40,10 +45,11 @@ body{
 }
 
 .sidenav a:hover {
-    background-color: #121212 !important;
+    background-color: hsla(0,0%,100%,.08) !important;
 }
 .active {
-    background-color: #121212;
+    background-color:  hsla(0,0%,100%,.08);
+    color: #4fc7fd !important;
 }
 .sideIcon{
     margin-right: 10px;
@@ -52,7 +58,7 @@ body{
     width: 100%;
     height: auto;
     padding-bottom: 5px;
-    background-color: #121212;
+    /*background-color: #121212;*/
     text-align: center;
 }
 .name{
@@ -78,6 +84,14 @@ body{
     width: 30px;
     height: 30px;
 }
+.addSet{
+    cursor: pointer;
+    float: right;
+    margin-top: -3px;
+}
+.setInfo{
+    margin-bottom: 2px;
+}
 #main{
     margin-left: 130px;
     height: 100%;
@@ -101,7 +115,11 @@ body{
   margin: 1px;
   color: white;
 }
-
+.setDiv{
+    margin-top: 10px;
+    text-align: center;
+    
+}
 [class*="bar"] {
   border-radius: 5px 5px 0 0;
   background-color: #ff4136;
@@ -115,6 +133,30 @@ body{
     font-size: 15px;
     margin-top: 500px;
 }
+.wrkDescription{
+    transition: opacity 440ms cubic-bezier(.5,0,.1,1) 2s;
+    position: absolute;
+    margin-top: -160px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 380px;
+    background-color: #000;
+    display: none;
+}
+.pickedTitle{
+    color: #fff;
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 25px;
+    float: left;
+}
+.pickedInfo{
+    float: left;
+    color: #fff;
+    font-family: "Arial Black",sans-serif;
+    width: 30%;
+    margin-left: 130px;
+}
 #workouts{
     padding-top: 100px;
     padding-left: 150px;
@@ -122,6 +164,15 @@ body{
     left: 0;
     top: 0;
     height: auto;
+}
+.video{
+    height: 376px;
+    width: 680px;
+    border: 0;
+}
+.instruction{
+    float: right;
+    overflow: scroll;
 }
 #settings{
     display: none;
@@ -142,7 +193,6 @@ ul{
     display: block;
     text-align: center;
     padding: 0;
-    box-shadow: 0 0 10px 0 rgba(0,0,0,.1);
     overflow-y: visible;
 }
 .ulTitle{
@@ -158,8 +208,8 @@ ul{
 li{
     display: block;
     width: 100%;
-    height: 20px;
-    margin-bottom: 3px;
+    height: auto;
+    margin-bottom: 1px;
     padding-bottom: 5px;
     padding-top: 10px;
     border-radius: 5px;
@@ -181,7 +231,7 @@ li{
     background-color: #ad3bcd;
 }
 [class*="leg"]{
-    background-color: #f5673f;
+    background-color: #FF8300;
 }
 [class*="back"]{
     background-color: #ffe100;
@@ -222,13 +272,14 @@ li{
     width: auto;
     color: #e8e8e8;
     margin-right: 20px;
+    list-style-position: inside;
 }
 .slidecontainer li:hover{
-    transform: scale(1.4);
+    transform: scale(1.2);
     opacity: 1;
 }
 .slidecontainer li:hover .addPic{
-    transform: scale(1.4);
+    transform: scale(1.2);
     opacity: 1;
 }
 .slidePic{
@@ -252,6 +303,9 @@ select{
 }
 .infoInput{
     width: 50px;
+}
+.check{
+    text-align: center;
 }
 .infoBox{
     text-align: center;
