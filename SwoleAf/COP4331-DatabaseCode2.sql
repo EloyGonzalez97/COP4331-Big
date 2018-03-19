@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS SwoleAF.Users
 
 CREATE TABLE IF NOT EXISTS SwoleAF.Trusted
 (
-	TrustedID INT,
+	TrustedID INT UNIQUE,
     FOREIGN KEY (TrustedID) REFERENCES SwoleAF.Users(UserID) ON DELETE CASCADE
 );
 
@@ -153,11 +153,11 @@ END \\
 # 0 = normal user, 1 = trainer, 2 = admin
 CREATE PROCEDURE SwoleAF.CheckSecurityLvl(UserID INT)
 BEGIN
-	DECLARE Level;
-	SET Level = 0;
-	SET Level = IF(UserID EXISTS(SELECT * FROM SwoleAF.Trusted), 1, 0);
-	SET Level = IF(UserID = 0, 2, 0);
-	SELECT Level;
+	DECLARE S_Level TINYINT;
+	SET S_Level = 0;
+	SET S_Level = IF((SELECT COUNT(*) FROM SwoleAF.Trusted WHERE TrustedID = UserID) > 0 , 1, 0);
+	SET S_Level = IF(UserID = 0, 2, S_Level);
+	SELECT S_Level;
 END \\
 
 #adds the supplied ID to the trusted table
