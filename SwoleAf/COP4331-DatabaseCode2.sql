@@ -4,7 +4,7 @@
 #This is the SQL code to create the database, tables and procedures to run the SwoleAF website. There is a short description
 #of what each procedure does above its declaration but I think the names are descriptive enough. The only ones that I believe
 #need more complete descriptions are marked with a *. They are covered in the README. The procedures are listed below for
-#quick reference. To user on, use CALL SwoleAF.<procedure name>:
+#quick reference. To user on, use CALL webalex_SwoleAF.<procedure name>:
 #----------User Creation and Login----------
 # CreateUser(UserName, Email, FirstName, LastName, Password)
 # Login((UserName or Email), Password)
@@ -27,7 +27,7 @@
 
 CREATE SCHEMA IF NOT EXISTS SwoleAF;
 
-CREATE TABLE IF NOT EXISTS SwoleAF.Users
+CREATE TABLE IF NOT EXISTS webalex_SwoleAF.Users
 (
 	UserID INT PRIMARY KEY,
 	UserName VARCHAR(25) UNIQUE NOT NULL,
@@ -37,14 +37,14 @@ CREATE TABLE IF NOT EXISTS SwoleAF.Users
 	PasswordCode VARCHAR(32) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS SwoleAF.Trusted
+CREATE TABLE IF NOT EXISTS webalex_SwoleAF.Trusted
 (
 	TrustedID INT UNIQUE,
-    FOREIGN KEY (TrustedID) REFERENCES SwoleAF.Users(UserID) ON DELETE CASCADE
+    FOREIGN KEY (TrustedID) REFERENCES webalex_SwoleAF.Users(UserID) ON DELETE CASCADE
 );
 
 #Here I create the Admin account and add it to trusted. The default ID is 0.
-INSERT INTO SwoleAF.Users(
+INSERT INTO webalex_SwoleAF.Users(
 		UserID,
 		UserName,
 		Email,
@@ -59,19 +59,19 @@ INSERT INTO SwoleAF.Users(
 		'King',
 		MD5('KingsOfSwoleAF')
 );
-INSERT INTO SwoleAF.Trusted(TrustedID) VALUES (0);
+INSERT INTO webalex_SwoleAF.Trusted(TrustedID) VALUES (0);
 
-CREATE TABLE IF NOT EXISTS SwoleAF.Routines
+CREATE TABLE IF NOT EXISTS webalex_SwoleAF.Routines
 (
 	RoutineID INT PRIMARY KEY AUTO_INCREMENT,
 	RoutineName VARCHAR(45) NOT NULL,
 	RoutineDescription TEXT NOT NULL,
 	RoutineDifficulty TINYINT NOT NULL,
 	RoutineCreator INT,
-    FOREIGN KEY (RoutineCreator) REFERENCES SwoleAF.Users(UserID) ON DELETE CASCADE
+    FOREIGN KEY (RoutineCreator) REFERENCES webalex_SwoleAF.Users(UserID) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS SwoleAF.Workouts
+CREATE TABLE IF NOT EXISTS webalex_SwoleAF.Workouts
 (
 	WorkoutID INT PRIMARY KEY AUTO_INCREMENT,
 	WorkoutMuscleGroup TINYINT NOT NULL,
@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS SwoleAF.Workouts
 	W_ImageAddress VARCHAR(60) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS SwoleAF.Routine_Workout
+CREATE TABLE IF NOT EXISTS webalex_SwoleAF.Routine_Workout
 (
 	RoutineID INT, 
 	WorkoutID INT,
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS SwoleAF.Routine_Workout
 	FOREIGN KEY(WorkoutID) REFERENCES Workouts(WorkoutID) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS SwoleAF.User_Routine
+CREATE TABLE IF NOT EXISTS webalex_SwoleAF.User_Routine
 (
 	UserID INT,
 	RoutineID INT,
@@ -101,10 +101,8 @@ CREATE TABLE IF NOT EXISTS SwoleAF.User_Routine
 );
 
 DELIMITER \\
-
-#Creates users with the provided info. Last name isn't required. This procedure
 #returns the ID of the generated account. On an error, it returns -1. 
-CREATE PROCEDURE SwoleAF.CreateUser(
+CREATE PROCEDURE webalex_SwoleAF.CreateUser(
     U_Name_Input VARCHAR(25),
 	Email_Input VARCHAR(50),
 	F_Name_Input VARCHAR(35),
@@ -117,11 +115,11 @@ BEGIN
 		SET GeneratedID = -1;
     SET GeneratedID = (RAND() * 2000000000 + 1);
 		
-	WHILE(SELECT COUNT(*) FROM SwoleAF.Users WHERE UserID = GeneratedID > 0)
+	WHILE(SELECT COUNT(*) FROM webalex_SwoleAF.Users WHERE UserID = GeneratedID > 0)
     DO
 		SET GeneratedID = RAND();
 	END WHILE;
-	INSERT INTO SwoleAF.Users(
+	INSERT INTO webalex_SwoleAF.Users(
 		UserID,
 		UserName,
 		Email,
@@ -140,8 +138,8 @@ BEGIN
 END \\
 
 #Returns the ID associated with the given info. The username input can be either
-#the account's username or the email. Either one works.
-CREATE PROCEDURE SwoleAF.Login(
+#the accounts username or the email. Either one works.
+CREATE PROCEDURE webalex_SwoleAF.Login(
 	IN U_Name_Input VARCHAR(50),
     IN Password_Input VARCHAR(32)
 )
@@ -151,42 +149,42 @@ END \\
 
 #checks the security level of a given user
 # 0 = normal user, 1 = trainer, 2 = admin
-CREATE PROCEDURE SwoleAF.CheckSecurityLvl(UserID INT)
+CREATE PROCEDURE webalex_SwoleAF.CheckSecurityLvl(UserID INT)
 BEGIN
 	DECLARE S_Level TINYINT;
 	SET S_Level = 0;
-	SET S_Level = IF((SELECT COUNT(*) FROM SwoleAF.Trusted WHERE TrustedID = UserID) > 0 , 1, 0);
+	SET S_Level = IF((SELECT COUNT(*) FROM webalex_SwoleAF.Trusted WHERE TrustedID = UserID) > 0 , 1, 0);
 	SET S_Level = IF(UserID = 0, 2, S_Level);
 	SELECT S_Level;
 END \\
 
 #adds the supplied ID to the trusted table
-CREATE PROCEDURE SwoleAF.PromoteUser(UserID INT)
+CREATE PROCEDURE webalex_SwoleAF.PromoteUser(UserID INT)
 BEGIN
-	INSERT INTO SwoleAF.Trusted(TrustedID)VALUES(UserID);
+	INSERT INTO webalex_SwoleAF.Trusted(TrustedID)VALUES(UserID);
 END \\
 
 #removes the supplied ID from the trusted table
-CREATE PROCEDURE SwoleAF.DemoteUser(UserID INT)
+CREATE PROCEDURE webalex_SwoleAF.DemoteUser(UserID INT)
 BEGIN
-	DELETE FROM SwoleAF.Trusted WHERE TrustedID = UserID;
+	DELETE FROM webalex_SwoleAF.Trusted WHERE TrustedID = UserID;
 END \\
 
 #returns all of the workouts
-CREATE PROCEDURE SwoleAF.GetWorkouts()
+CREATE PROCEDURE webalex_SwoleAF.GetWorkouts()
 BEGIN
-	SELECT * FROM SwoleAF.Workouts ORDER BY WorkoutMuscleGroup ASC, WorkoutName DESC;
+	SELECT * FROM webalex_SwoleAF.Workouts ORDER BY WorkoutMuscleGroup ASC, WorkoutName ASC;
 END \\
 
 #creates a workout based on the given info
-CREATE PROCEDURE SwoleAF.AddWorkout(
+CREATE PROCEDURE webalex_SwoleAF.AddWorkout(
 	IN Muscle_Group_Input TINYINT,
     IN Name_Input VARCHAR(45),
     IN Description_Input TEXT,
 	IN Address_Input Varchar(60)
 )
 BEGIN
-	INSERT INTO SwoleAF.Workouts(
+	INSERT INTO webalex_SwoleAF.Workouts(
 		WorkoutMuscleGroup,
         WorkoutName,
         WorkoutDescription,
@@ -200,38 +198,29 @@ BEGIN
 END \\
 
 #removes a workout from the workout table
-CREATE PROCEDURE SwoleAF.RemoveWorkout(IN DropID INT)
+CREATE PROCEDURE webalex_SwoleAF.RemoveWorkout(IN DropID INT)
 BEGIN
-	DELETE FROM SwoleAF.Workouts WHERE WorkoutID = DropID;
+	DELETE FROM webalex_SwoleAF.Workouts WHERE WorkoutID = DropID;
 END \\
 
 #Retrieves any routines created by the user or anyone that is
 #found in the trusted table.
-CREATE PROCEDURE SwoleAF.GetRoutines(IN AccessID INT)
+CREATE PROCEDURE webalex_SwoleAF.GetRoutines(IN AccessID INT)
 BEGIN
-	SELECT * FROM SwoleAF.Routines WHERE RoutineCreator = AccessID OR EXISTS (SELECT * FROM Trusted) ORDER BY RoutineName DESC;
+	SELECT * FROM webalex_SwoleAF.Routines WHERE RoutineCreator = AccessID OR EXISTS (SELECT * FROM Trusted) ORDER BY RoutineName DESC;
 END \\
 
 #Creates a routine in the routine table with the given info.
 #Also creates the appropriate links in the routine_workout
 #table using the json input.
-CREATE PROCEDURE SwoleAF.AddRoutine(
+CREATE PROCEDURE webalex_SwoleAF.AddRoutine(
 	IN Name_Input VARCHAR(45),
     IN Description_Input TEXT,
     IN Difficulty_Input TINYINT,
-    IN AccessID INT,
-    IN WorkoutData JSON
+    IN AccessID INT
 )
 BEGIN
-	DECLARE Counter INT;
-    DECLARE Len INT;
-    DECLARE NewID INT;
-    DECLARE TempCode INT;
-    DECLARE TempReps INT; 
-    DECLARE TempWeight INT;
-    SET Counter = 0;
-    SET Len = JSON_LENGTH(WorkoutData, '$.Workouts');
-	INSERT INTO SwoleAF.Routines(
+	INSERT INTO webalex_SwoleAF.Routines(
 		RoutineName,
         RoutineDescription,
         RoutineDifficulty,
@@ -242,92 +231,90 @@ BEGIN
         Difficulty_Input,
         AccessID
     );
-    SET NewID = LAST_INSERT_ID();
-    WHILE Counter < Len
-    DO
-		SET TempCode = JSON_EXTRACT(WorkoutData, CONCAT('$.Workouts[', Counter, '][0]'));
-        SET TempReps = JSON_EXTRACT(WorkoutData, CONCAT('$.Workouts[', Counter, '][1]'));
-        SET TempWeight = IF(JSON_TYPE(JSON_EXTRACT(WorkoutData, CONCAT('$.Workouts[', Counter, '][2]'))) = "NULL",
-							NULL,
-                            JSON_EXTRACT(WorkoutData, CONCAT('$.Workouts[', Counter, '][2]')));
-        INSERT INTO SwoleAF.Routine_Workout(
-			RoutineID,
-            WorkoutID,
-            Reps,
-            Weight
-        )VALUES(
-			NewID,
-            TempCode,
-            TempReps,
-            TempWeight
-        );
-        SET Counter = Counter + 1;
-    END WHILE;
+    SELECT LAST_INSERT_ID();
+END \\
+
+CREATE PROCEDURE webalex_SwoleAF.DefineRoutine(
+	IN RoutineID_Input INT,
+    IN WorkoutID_Input INT,
+    IN Reps_Input INT,
+    IN Weights_Input INT)
+BEGIN
+	INSERT INTO webalex_SwoleAF.Routine_Workout(
+		RoutineID,
+        WorkoutID,
+        Reps,
+        Weight
+    )VALUES(
+		RoutineID_Input,
+        WorkoutID_Input,
+        Reps_Input,
+        Weights_Input
+    );
 END \\
 
 #removes a routine from the routine table
-CREATE PROCEDURE SwoleAF.RemoveRoutine(IN DropID INT)
+CREATE PROCEDURE webalex_SwoleAF.RemoveRoutine(IN DropID INT)
 BEGIN
-	DELETE FROM SwoleAF.Routines WHERE RoutineID = DropID;
+	DELETE FROM webalex_SwoleAF.Routines WHERE RoutineID = DropID;
 END \\
 
 #retrieves the weekly schedule for a given user
-CREATE PROCEDURE SwoleAF.GetWeeklySchedule(IN AccessID INT)
+CREATE PROCEDURE webalex_SwoleAF.GetWeeklySchedule(IN AccessID INT)
 BEGIN
-	SELECT * FROM User_Routine 
-		JOIN Routines ON User_Routine.RoutineID = Routines.RoutineID
-		JOIN Routine_Workout ON Routines.RoutineID = Routine_Workout.RoutineID
-		JOIN Workouts ON Routine_Workout.WorkoutID = Workouts.WorkoutID
+	SELECT 
+		Weekday, 
+		StartTime, 
+        Routines.RoutineID, 
+        RoutineName, 
+        RoutineDescription,
+        RoutineDifficulty, 
+        Workouts.WorkoutID, 
+        WorkoutName, 
+        WorkoutMuscleGroup, 
+        Reps, 
+        Weight, 
+        WorkoutDescription, 
+        W_ImageAddress 
+        FROM User_Routine 
+			JOIN Routines ON User_Routine.RoutineID = Routines.RoutineID
+			JOIN Routine_Workout ON Routines.RoutineID = Routine_Workout.RoutineID
+			JOIN Workouts ON Routine_Workout.WorkoutID = Workouts.WorkoutID
 	WHERE UserID = AccessID
     ORDER BY Weekday ASC;
 END \\
 
 #adds routines to a users weekly schedule
-CREATE PROCEDURE SwoleAF.AddWeeklySchedule(
+CREATE PROCEDURE webalex_SwoleAF.AddWeeklySchedule(
 	IN AccessID INT, 
-    IN ScheduleData JSON
+    IN RoutineID_Input INT,
+    IN Weekday_Input TINYINT,
+    IN Time_Input TIME
 )
 BEGIN
-	DECLARE Counter INT;
-    DECLARE Len INT;
-    DECLARE TempID INT;
-    DECLARE TempWeekday TINYINT;
-    DECLARE TempTimeString VARCHAR(10);
-    DECLARE TempTime TIME;
-    SET Counter = 0;
-    SET Len = JSON_LENGTH(ScheduleData, '$.Schedule');
-   
-    WHILE Counter < Len 
-    DO
-		SET TempID = JSON_EXTRACT(ScheduleData, CONCAT('$.Schedule[', Counter, '][0]'));
-        SET TempWeekday = JSON_EXTRACT(ScheduleData, CONCAT('$.Schedule[', Counter, '][1]'));
-        SET TempTimeString = JSON_EXTRACT(ScheduleData, CONCAT('$.Schedule[', Counter, '][2]'));
-        SET TempTime = STR_TO_DATE(TempTimeString, '"%H:%i"'); 
-        INSERT INTO SwoleAF.User_Routine(
-			UserID,
-            RoutineID,
-            Weekday,
-            StartTime
-        )VALUES(
-			AccessID,
-            TempID,
-            TempWeekday,
-            TempTime
-        );
-        
-        SET Counter = Counter + 1;
-    END WHILE;
+    INSERT INTO webalex_SwoleAF.User_Routine(
+		UserID,
+        RoutineID,
+        Weekday,
+        StartTime
+	)VALUES(
+		AccessID,
+        RoutineID_Input,
+        Weekday_Input,
+        Time_Input
+	);
 END \\
 
 #removes a routine from a users weekly schedule given the
 #id and day that it was assigned
-CREATE PROCEDURE SwoleAF.RemoveWeeklySchedule(
+CREATE PROCEDURE webalex_SwoleAF.RemoveWeeklySchedule(
 	AccessID INT,
     RoutineID_Input INT,
-    WeekDay_Input TINYINT
+    WeekDay_Input TINYINT,
+    Time_Input TIME
 )
 BEGIN
-	DELETE FROM SwoleAF.User_Routine WHERE UserID = AccessID AND RoutineID_Input = RoutineID AND Weekday_Input = Weekday;
+	DELETE FROM webalex_SwoleAF.User_Routine WHERE UserID = AccessID AND RoutineID_Input = RoutineID AND Weekday_Input = Weekday AND Time_Input = StartTime;
 END \\
 
 DELIMITER ;
