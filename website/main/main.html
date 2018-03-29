@@ -20,6 +20,7 @@
     </div>
     <div class="topnav">
         <img src="../images/logo.png" alt = "logo" width="150" height="30" style="margin-top: 5px; display: block; margin-left:auto; margin-right:auto;">
+        <a href="../index.html" style = "float: right; color: #fff; margin-top:-30px;"><img src="../images/logout.png" alt = "logout"  class ="sideIcon" width="25" height="25" onclick="logout()"></a>
     </div>
     <div id="main">
         <div id="id01" class="modal">
@@ -175,7 +176,10 @@
                 <div class = "slideWrapper">
                 <label class = "slideTitle" >Chest</label>
                 <ul id="chstSlides" class = "slidecontainer"></ul>
-                <img class = "arrowR" src = "../images/arrow-right.png">
+                <div class = "arrows">
+                    <img class = "arrowL" src = "../images/arrow-right.png" onclick= "goLeft(this);">
+                    <img class = "arrowR" src = "../images/arrow-right.png" onclick= "goRight(this);">
+                </div>
                 </div>
                 <div class = "wrkDescription" id = "wrkDescription">
                     <span onclick="removeDescription(this);" class="close" style="margin-top: 0px; color:#fff;" title="Close Modal">&times;</span>
@@ -196,7 +200,10 @@
                 <div class = "slideWrapper">
                 <label class = "slideTitle" >Back</label>
                 <ul id="bckSlides" class = "slidecontainer"></ul>
-                <img class = "arrowR" src = "../images/arrow-right.png">
+                <div class = "arrows">
+                    <img class = "arrowL" src = "../images/arrow-right.png" onclick= "goLeft(this);">
+                    <img class = "arrowR" src = "../images/arrow-right.png" onclick= "goRight(this);">
+                </div>
                 </div>
                 <div class = "wrkDescription" id = "wrkDescription">
                     <span onclick="removeDescription(this);" class="close" style="margin-top: 0px; color:#fff;" title="Close Modal">&times;</span>
@@ -212,7 +219,10 @@
                 <div class = "slideWrapper">
                 <label class = "slideTitle" >Bicep</label>
                 <ul id="bcpSlides" class = "slidecontainer"></ul>
-                <img class = "arrowR" src = "../images/arrow-right.png">
+                <div class = "arrows">
+                    <img class = "arrowL" src = "../images/arrow-right.png" onclick= "goLeft(this);">
+                    <img class = "arrowR" src = "../images/arrow-right.png" onclick= "goRight(this);">
+                </div>
                 </div>
                 <div class = "wrkDescription" id = "wrkDescription">
                     <span onclick="removeDescription(this);" class="close" style="margin-top: 0px; color:#fff;" title="Close Modal">&times;</span>
@@ -228,7 +238,10 @@
                 <div class = "slideWrapper">
                 <label class = "slideTitle" >Legs</label>
                 <ul id="lgsSlides" class = "slidecontainer"></ul>
-                <img class = "arrowR" src = "../images/arrow-right.png">
+                <div class = "arrows">
+                    <img class = "arrowL" src = "../images/arrow-right.png" onclick= "goLeft(this);">
+                    <img class = "arrowR" src = "../images/arrow-right.png" onclick= "goRight(this);">
+                </div>
                 </div>
                 <div class = "wrkDescription" id = "wrkDescription">
                     <span onclick="removeDescription(this);" class="close" style="margin-top: 0px; color:#fff;" title="Close Modal">&times;</span>
@@ -244,7 +257,10 @@
                 <div class = "slideWrapper">
                 <label class = "slideTitle" >Abs</label>
                 <ul id="abSlides" class = "slidecontainer"></ul>
-                <img class = "arrowR" src = "../images/arrow-right.png">
+                <div class = "arrows">
+                    <img class = "arrowL" src = "../images/arrow-right.png" onclick= "goLeft(this);">
+                    <img class = "arrowR" src = "../images/arrow-right.png" onclick= "goRight(this);">
+                </div>
                 </div>
                 <div class = "wrkDescription" id = "wrkDescription">
                     <span onclick="removeDescription(this);" class="close" style="margin-top: 0px; color:#fff;" title="Close Modal">&times;</span>
@@ -260,7 +276,10 @@
                 <div class = "slideWrapper">
                 <label class = "slideTitle" >Shoulders</label>
                 <ul id="shldSlides" class = "slidecontainer"></ul>
-                <img class = "arrowR" src = "../images/arrow-right.png">
+                <div class = "arrows">
+                    <img class = "arrowL" src = "../images/arrow-right.png" onclick= "goLeft(this);">
+                    <img class = "arrowR" src = "../images/arrow-right.png" onclick= "goRight(this);">
+                </div>
                 </div>
                 <div class = "wrkDescription" id = "wrkDescription">
                     <span onclick="removeDescription(this);" class="close" style="margin-top: 0px; color:#fff;" title="Close Modal">&times;</span>
@@ -277,7 +296,10 @@
                 <div class = "slideWrapper">
                 <label class = "slideTitle" >Tricep</label>
                 <ul id="tcpSlides" class = "slidecontainer"></ul>
-                <img class = "arrowR" src = "../images/arrow-right.png">
+                <div class = "arrows">
+                    <img class = "arrowL" src = "../images/arrow-right.png" onclick= "goLeft(this);">
+                    <img class = "arrowR" src = "../images/arrow-right.png" onclick= "goRight(this);">
+                </div>
                 </div>
                 <div class = "wrkDescription" id = "wrkDescription">
                     <span onclick="removeDescription(this);" class="close" style="margin-top: 0px; color:#fff;" title="Close Modal">&times;</span>
@@ -336,7 +358,52 @@
         </div>
         </div>
         <div id="routines">
-        
+            <div id="id03" class="modal">
+            <form class="modal-content animate">
+                          <br>
+                          <img src="../images/logo.png" alt = "logo" width="140" height="30" style="margin-top: 5px; margin-left: auto; margin-right:auto; display:block;">
+                          <span onclick="resetForm();" class="close" title="Close Modal">&times;</span>
+                          <div class="container">
+                              <select class = "day" id="daysB">
+                                  <option selected disabled>Choose Day:</option>
+                                  <option value="Monday">Monday</option>
+                                  <option value="Tuesday">Tuesday</option>
+                                  <option value="Wednesday">Wednesday</option>
+                                  <option value="Thursday">Thursday</option>
+                                  <option value="Friday">Friday</option>
+                                  <option value="Saturday">Saturday</option>
+                                  <option value="Sunday">Sunday</option>
+                            </select>
+                              <br><br>
+                              <div id = "checkC" class="check">
+                                  <input type="radio" name="routine" id= "radioBtn" value="append" onclick="appendRoutine(true);">Add to Workout
+                                  <input type="radio" name="routine" id= "radioBtn" value="replace" onclick="appendRoutine(false);">Replace Workout
+                              </div>
+                              <br><br>
+                              <button type="button" onclick= "addRoutine()" class = "btn" id = "addbtn" style = "width: 100%;">Add</button>
+                </div>  
+            </form>
+            </div>
+            <div class = "rtnWrapper">
+                 <label class = "slideTitle">Beginner</label>
+                 <div class = "rtnSlides" id = "beginner">
+                    <ul class = "rtnList" id = "rtnList">
+                        <li class="bicep" data-volume="650" data-set="[{&quot;Set&quot;:1,&quot;Reps&quot;:&quot;10&quot;,&quot;Weight&quot;:&quot;35&quot;},{&quot;Set&quot;:2,&quot;Reps&quot;:&quot;10&quot;,&quot;Weight&quot;:&quot;30&quot;}]" onclick="showWorkoutInfo(this)">Bicep Curl <label></label></li>
+                        <li class = "bicep">Hammer Curl</li>
+                        <li class = "bicep">Barbell Curl </li>
+                        <img src="../images/add.png" class="add" alt = "add" onclick="flagRoutine(this);">
+                    </ul>
+                </div>
+            </div>
+            <div class = "rtnWrapper">
+                    <label class = "slideTitle">Intermediate</label>
+                    <div class= "rtnSlides" id = "intermediate">
+                    </div>
+                </div>
+            <div class = "rtnWrapper">
+                <label class = "slideTitle">Advanced</label>
+                <div class= "rtnSlides"  id = "advanced"></div>
+                </div>
         </div>
         <div id="settings">
             <div class = "account" id = "accountInfo"> </div>

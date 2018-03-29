@@ -11,6 +11,7 @@ var absBool;
 var legsBool;
 var shoulderBool;
 var multiple;
+var append;
 var bicepNumber;
 var tricepNumber;
 var chestNumber;
@@ -26,7 +27,7 @@ var thursdayVolume = [0,0,0,0,0,0];
 var fridayVolume = [0,0,0,0,0,0];
 var saturdayVolume = [2300,0,0,0,0,0];
 var sundayVolume = [0,0,0,0,980,0];
-var chestArray = ["Dumbbell Bench Press","Decline Dumbbell Bench Press", " Incline Dumbbell Bench Press", "Pushups", "Dumbbell Flyes", "Incline Dumbbell Press", "Low Cable Crossover", "Decline Dumbbell Flyes", "Dips - Chest Version", "Barbell Bench Press", "Decline Barbell Bench Press","Incline Barbell Bench Press", "Cable Crossover", "Smith Machine Bench Press", "Front Raise And Pullover", "Incline Dumbbell Flyes"];
+var chestArray = ["Dumbbell Bench Press","Decline Dumbbell Bench Press", " Incline Dumbbell Bench Press", "Pushups", "Dumbbell Flyes", "Incline Dumbbell Press", "Low Cable Crossover", "Decline Dumbbell Flyes", "Dips", "Barbell Bench Press", "Decline Barbell Bench Press","Incline Barbell Bench Press", "Cable Crossover", "Smith Machine Bench Press", "Front Raise And Pullover", "Incline Dumbbell Flyes"];
 var absArray = ["Leg Raises", "Flutter Kicks", "Plank", "Side Planks", "Russian Twists", "Hanging Leg Raises", "Sit Up", "Ab Wheel Rollout"];
 var backArray = ["Lat Pulldown", "Seated Row", "Deadlifts", "Single Arm Dumbbell Row", "Bent-over Row"];
 var bicepArray = ["Bicep Curl", "Hammer Curl", "Incline Dumbbell Curl", "Straight Barbell Curl", "Chinups"];
@@ -46,6 +47,7 @@ $(document).ready(function(){
     $("#infoBoxB").hide();
     $("#infoBox2B").hide();
     $("#checkB").hide();
+    $("#checkC").hide();
     $("a").on("click", function(e){
         e.preventDefault();
         sessionStorage.setItem('lastTab', $(e.target).attr('id'));
@@ -125,6 +127,9 @@ $(document).ready(function(){
     $("#days").change(function(){
         $("#checkB").show();   
     });
+    $("#daysB").change(function(){
+        $("#checkC").show();   
+    });
 
 });
 /*Show the radio buttons and the sets on the calendar page */
@@ -168,6 +173,53 @@ function addSetCal(){
     div.setAttribute('class', 'setInfo');
     div.innerHTML = "Set:"+setNum+" <label>Reps:</label><input type='text' class = 'infoInput' id='repVal'> <label>Weight:</label><input type='text' class = 'infoInput' id='weightVal'>";
     setBox.appendChild(div);
+}
+function addRoutine(){
+    var day = document.getElementById('daysB').value;
+    var cal = document.getElementById(day);
+    console.log(cal);
+    if(append){
+        for(var i = 0; i < ul.childNodes.length; i++){
+            var temp = ul.childNodes[i];
+            if(temp.tagName === "LI"){
+                var im = document.createElement("IMG");
+                im.setAttribute('src', '../images/delete.png');
+                im.setAttribute("class", "delete");
+                im.setAttribute("onclick", "flagDelete(this)");
+                var li = document.createElement("LI");
+                li.setAttribute("class", temp.className);
+                li.setAttribute("data-volume", temp.getAttribute("data-volume"));
+                li.setAttribute("data-set", temp.getAttribute("data-set"));
+                li.setAttribute("onclick", "showWorkoutInfo(this)");
+                li.appendChild(im);
+                li.appendChild(document.createTextNode(temp.innerText));
+                cal.insertBefore(li, cal.childNodes[2]);
+            }
+        }
+    }else{
+        cal.innerHTML = "<p class = 'ulTitle'>"+ day +"</p>";
+        for(var i = 0; i < ul.childNodes.length; i++){
+            var temp = ul.childNodes[i];
+            if(temp.tagName === "LI"){
+                var im = document.createElement("IMG");
+                im.setAttribute('src', '../images/delete.png');
+                im.setAttribute("class", "delete");
+                im.setAttribute("onclick", "flagDelete(this)");
+                var li = document.createElement("LI");
+                li.setAttribute("class", temp.className);
+                li.setAttribute("data-volume", temp.getAttribute("data-volume"));
+                li.setAttribute("data-set", temp.getAttribute("data-set"));
+                li.setAttribute("onclick", "showWorkoutInfo(this)");
+                li.appendChild(im);
+                li.appendChild(document.createTextNode(temp.innerText));
+                cal.insertBefore(li, cal.childNodes[2]);
+            }
+        }
+    }
+    resetForm();
+}
+function appendRoutine(bool){
+    append = bool;
 }
 /*Initiate each workout type in there respective slides, public workouts not custom*/
 function initWorkouts(){
@@ -720,7 +772,7 @@ function addVolume(volume, add){
 }
 /* Show the sets, rep and weights of workout on the calendar */
 function showWorkoutInfo(workout){
-    console.log(workout);
+    console.log(workout.childNodes);
     if(workout.childNodes.length > 2){
         workout.childNodes[2].remove();
         workout.style.marginBottom = "1px";
@@ -809,11 +861,14 @@ function removeDescription(r){
 function resetForm(){
     document.getElementById("id01").style.display = "none";
     document.getElementById("id02").style.display = "none";
+    document.getElementById("id03").style.display = "none";
     $('#workout').prop('selectedIndex', 0);
     $('#days').prop('selectedIndex', 0);
+    $('#daysB').prop('selectedIndex', 0);
     $('#workout').hide();
     $('#check').hide();
     $('#checkB').hide();
+    $('#checkC').hide();
     $("#infoBox").hide();
     $("#infoBox2").hide();
     $("#infoBoxB").hide();
@@ -824,6 +879,16 @@ function resetForm(){
     $("#weightVal").val('');
     $(".setInfo").remove();
     $("#workoutTypes").prop('selectedIndex', 0);
+    var checka = document.getElementById('check');
+    checka.childNodes[1].checked = false;
+    checka.childNodes[3].checked = false;
+    var checkb = document.getElementById('checkB');
+    checkb.childNodes[1].checked = false;
+    checkb.childNodes[3].checked = false;
+    var checkc = document.getElementById('checkC');
+    checkc.childNodes[1].checked = false;
+    checkc.childNodes[3].checked = false;
+    console.log(checkc.childNodes);
     setNum = 0;
 }
 /* Makes sure last tab is not lost after refresh */
@@ -954,6 +1019,16 @@ function deleteWorkout(){
     addVolume(volume, false);
     
 }
+/*Scrolls left on slide*/
+function goLeft(r){
+    var par  = r.parentNode.parentNode.childNodes[3];
+    par.scrollLeft -= 300;
+}
+/*Scrolls right on slide*/
+function goRight(r){
+    var par  = r.parentNode.parentNode.childNodes[3];
+    par.scrollLeft += 300;
+}
 /* Sets which day that was picked to add workout to */
 function flag(r){
     document.getElementById('id01').style.display="block";
@@ -966,6 +1041,11 @@ function flagDelete(r){
     ul = r.parentNode.parentNode;
     console.log(ul);
     deleteWorkout();
+}
+function flagRoutine(r){
+    document.getElementById('id03').style.display="block";
+    ul = r.parentNode;
+    console.log(ul);
 }
 $(function(){
     $("a").bind("click", switchDiv);

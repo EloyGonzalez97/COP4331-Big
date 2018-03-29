@@ -70,13 +70,38 @@ body{
     margin-left: auto;
     margin-right: auto;
 }
+.arrows{
+    visibility: hidden;
+}
+.arrows:hover{
+    visibility: visible;
+}
+.arrowL{
+    background-color:  #1f1f1f;
+    position: absolute;
+    z-index: 5;
+	width: 3em;
+    margin-top: -350px;
+    left: 150px;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+.arrowL:hover{
+    background-color:  #4fc7fd;
+    visibility: visible;
+    cursor: pointer;
+}
 .arrowR{
     background-color:  #1f1f1f;
-    visibility: hidden;
     position: absolute;
+    z-index: 5;
 	width: 3em;
     margin-top: -350px;
     right: 0;
+}
+.arrowR:hover{
+    background-color:  #4fc7fd;
+    cursor: pointer;
 }
 .add{
     float: right;
@@ -165,9 +190,18 @@ body{
     top: 0;
     height: auto;
 }
+#routines{
+    padding-top: 100px;
+}
+.rtnSlides{
+    margin-top: 50px;
+    height: 230px;
+    width: 100%;
+    padding-left: 70px;
+}
 .video{
     height: 376px;
-    width: 680px;
+    width: 650px;
     border: 0;
 }
 .instruction{
@@ -254,7 +288,7 @@ li{
 }
 .slidecontainer{
     list-style: none;
-    width: auto;
+    width: 100%;
     height: 450px;
     white-space:nowrap;
     overflow-x: scroll;
@@ -263,7 +297,7 @@ li{
     margin-top: 0;
     box-shadow: 0 0 10px 0 rgba(0,0,0,.0);
 }
-.slidecontainer:hover +.arrowR{
+.slidecontainer:hover + .arrows{
     visibility: visible;
 }
 .slidecontainer li{  
@@ -315,6 +349,20 @@ select{
     border-bottom: 0.5px solid #8c8c8c;
     height: 500px;
     text-align: center;
+}
+#radioBtn{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 0.5px solid #e7e7e7;
+    height: 10px;
+    width: 10px;
+    transition: 0.2s all linear;
+    border-radius: 50%;
+    background-color:  #e5e5e5;
+}
+input[type="radio"]:checked{
+    background-color:  #4fc7fd !important;
 }
 .wrapper{
     display: block;
