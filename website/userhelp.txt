@@ -1,0 +1,22 @@
+						*************************
+						* How to use User class *
+						*************************
+
+Create a new user (Signs in automatically after account creation):
+	$user = User::withSignUp($username, $email, $firstname, $lastname, $password);
+
+
+Sign in user:
+	$user = User::withLogin($username, $password);
+
+
+Logout user:
+	$user->logout();
+
+
+Check security level:
+	$level = $user->checkSecLevel();
+
+
+Get user ID:
+	$ID = $user->getID();
