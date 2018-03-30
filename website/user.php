@@ -28,13 +28,13 @@ class User {
 	}
 
 	public function signup($username, $email, $firstname, $lastname, $password) {
-		$sql = "CALL CreateUser($username, $email, $firstname, $lastname, $password)";
+		$sql = "CALL CreateUser('" . $username . '",'" . $email . '",'" . $firstname . '",'" . $lastname . '",'" . $password . '")";
 		$stmt = $database->prepare($sql);
 		$stmt->execute();
 	}
 
 	public function login($username, $password) {
-		$sql = "CALL Login($username, $password)";
+		$sql = "CALL Login('" . $username . '",'" . $password . '")";
 		$stmt = $database->prepare($sql);
 		$stmt->execute();
 
