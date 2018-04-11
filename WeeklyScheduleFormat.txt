@@ -1,0 +1,66 @@
+Here is an idea for how weekly schedules can be passed as in Json format
+
+[
+	{
+    day: 0
+    routines:
+		[
+			{
+            id: idval
+            name: name
+            time: time
+            description: description
+            difficulty: difficulty
+            workouts:
+				[
+					{
+                    id: id
+                    name: name
+                    musclegroup:misclegroup
+                    reps:reps
+                    weight:weight
+                    description:description
+                    imageaddress:imageaddress
+                    },
+                    {
+                    id: id
+                    name: name
+                    musclegroup:misclegroup
+                    reps:reps
+                    weight:weight
+                    description:description
+                    imageaddress:imageaddress
+                    }
+                ]
+			}
+            ,
+            {
+            id: idval
+            name: name
+            time: time
+            description: description
+            difficulty: difficulty
+            workouts:
+				[
+					{
+                    id: id
+                    name: name
+                    musclegroup:misclegroup
+                    reps:reps
+                    weight:weight
+                    description:description
+                    imageaddress:imageaddress
+                    },
+                    {
+                    id: id
+                    name: name
+                    musclegroup:misclegroup
+                    reps:reps
+                    weight:weight
+                    description:description
+                    imageaddress:imageaddress
+                    }
+                ]
+			}
+        ]
+	]
