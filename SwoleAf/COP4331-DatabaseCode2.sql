@@ -2,12 +2,12 @@
 #Author: William Gross
 
 #This is the SQL code to create the database, tables and procedures to run the SwoleAF website. There is a short description
-#of what each procedure does above its declaration but I think the names are descriptive enough. The only ones that I believe
-#need more complete descriptions are marked with a *. They are covered in the README. The procedures are listed below for
-#quick reference. To user on, use CALL webalex_SwoleAF.<procedure name>:
+#of what each procedure does above its declaration but I think the names are descriptive enough. The procedures are listed below for
+#quick reference. To use these procedures, use CALL webalex_SwoleAF.<procedure name>:
 #----------User Creation and Login----------
 # CreateUser(UserName, Email, FirstName, LastName, Password)
 # Login((UserName or Email), Password)
+# GetUserInfo(UserID)
 #----------Trainer Status----------
 # CheckSecurityLvl(UserID)
 # PromoteUser(UserID)
@@ -145,6 +145,14 @@ CREATE PROCEDURE webalex_SwoleAF.Login(
 )
 BEGIN
 	SELECT UserID FROM Users WHERE Password_Input = PasswordCode AND (U_Name_Input = UserName OR U_Name_Input = Email);
+END \\
+
+#Gets the user info for a given UserID
+CREATE PROCEDURE webalex_SwoleAF.GetUserInfo(
+	IN AccessID
+)
+BEGIN
+	SELECT UserName, Email,	FirstName, LastName FROM webalex_SwoleAF.Users WHERE AccessID = UserID;
 END \\
 
 #checks the security level of a given user
