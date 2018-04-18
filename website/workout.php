@@ -41,17 +41,30 @@ class Workout {
 		$db = $this->connect();
 		$sql = "CALL GetWorkouts()";
 		$result = mysqli_query($db, $sql);
+
+		while($result->num_rows > 0) {
+			$row = $result->fetch_assoc();
+			// parse the results then create JSON object for all workouts
+		}
 	}
 
 	public function addRoutine($name, $description, $difficulty, $accessID) { 
 		$db = $this->connect();
 		$sql = "CALL AddRoutine('" . $name . "','" . $description . "','" . $difficulty . "','" . $accesID . "')";
-		mysqli_query($db, $sql);
+		$result = mysqli_query($db, $sql);
+		if($result->num_rows > 0) {
+			$row = $result->fetch_assoc();
+			$rtn = $row["RoutineID"];
+		} else {
+			$rtn = 0;
+		}
+
+		return $rtn;
 	}
 
 	public function defineRoutine($routineID, $workoutID, $reps, $weight) {
 		$db = $this->connect();
-		$sql = "CALL AddRoutine('" . $routineID . "','" . $workoutID . "','" . $reps . "','" . $weight . "')";
+		$sql = "CALL DefineRoutine('" . $routineID . "','" . $workoutID . "','" . $reps . "','" . $weight . "')";
 		mysqli_query($db, $sql);
 	}
 
@@ -84,6 +97,9 @@ class Workout {
 		$db = $this->connect();
 		$sql = "CALL getWeeklySchedule('" . $accessID . "')";
 		$result = mysqli_query($db, $sql);
+
+
+		return $JsonWeekly;
 	}
 
 }
