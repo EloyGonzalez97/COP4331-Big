@@ -42,29 +42,50 @@
 				// Indicate that there was no error and the user was successfully found
 				$response["error"] = FALSE;
 				
+				
+				
 				$row = $result->fetch_assoc();
 				
 				$id = $row["UserID"];
-				$username = $row['UserName'];
-				$email = $row["Email"];
-				$fname = $row["FirstName"];
-				$lname = $row["LastName"];
-				
-				$response["id"] = $id;
-				$response["uname"] = $username;
-				$response["email"] = $email;
-				$response["fname"] = $fname;
-				$response["lname"] = $lname;
 				
 				
+				$sql2 = "CALL GetUserInfo('" . $id ."')";
+				$result2 = mysqli_query($db, $sql2);
 				
+				
+				$response["uname"] = $result2->num_rows;
+				 
+				if($result2->num_rows > 0) 
 
-				//	echo $id;
-				session_start();
-				$_SESSION['user'] = $id;
+				{
+					$row2 = $result2->fetch_assoc();
+					
+					$username = $row2["UserName"];
+					$email = $row2["Email"];
+					$fname = $row2["FirstName"];
+					$lname = $row2["LastName"];
+					
+					$response["id"] = $id;
+					$response["uname"] = $username;
+					$response["email"] = $email;
+					$response["fname"] = $fname;
+					$response["lname"] = $lname;
+					
+					
+					
+
+					//	echo $id;
+					session_start();
+					$_SESSION['user'] = $id;
+					
+					
+        		}
+				
 				
 				echo json_encode($response);
-        		
+			
+			
+
 			} 
 			
 			else 
