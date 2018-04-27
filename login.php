@@ -49,7 +49,7 @@
 				$id = $row["UserID"];
 				
 				
-				$sql2 = "CALL GetUserInfo('" . $id ."')";
+				$sql2 = "CALL GetUserInfo('" . $id . "')";
 				$result2 = mysqli_query($db, $sql2);
 				
 				
