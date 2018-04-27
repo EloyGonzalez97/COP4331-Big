@@ -1,4 +1,4 @@
-"SELECT `UserName`, `Email`, `LastName`, FROM `Users` WHERE UserID = '" . $id . "'";
+"SELECT `UserName`, `Email`, `LastName` FROM `Users` WHERE UserID = '" . $id . "'";
 <?php  
  
  
