@@ -1,4 +1,5 @@
- <?php  
+"SELECT `UserName`, `Email`, `LastName`, FROM `Users` WHERE UserID = '$id'";
+<?php  
  
  
 	if (isset($_POST['username']) && isset($_POST['password'])) 
