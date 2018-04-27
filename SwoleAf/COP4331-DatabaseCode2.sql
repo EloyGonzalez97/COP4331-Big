@@ -144,7 +144,7 @@ CREATE PROCEDURE webalex_SwoleAF.Login(
     IN Password_Input VARCHAR(32)
 )
 BEGIN
-	SELECT UserID FROM Users WHERE Password_Input = PasswordCode AND (U_Name_Input = UserName OR U_Name_Input = Email);
+	SELECT UserID, UserName, Email,	FirstName, LastName FROM Users WHERE Password_Input = PasswordCode AND (U_Name_Input = UserName OR U_Name_Input = Email);
 END \\
 
 #Gets the user info for a given UserID
