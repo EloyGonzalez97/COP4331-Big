@@ -215,8 +215,8 @@ END \\
 #found in the trusted table.
 CREATE PROCEDURE webalex_SwoleAF.GetRoutines(IN AccessID INT)
 BEGIN
-	SELECT * FROM webalex_SwoleAF.Routines WHERE RoutineCreator = AccessID OR EXISTS (SELECT * FROM Trusted) ORDER BY RoutineName DESC;
-END \\
+	SELECT * FROM webalex_SwoleAF.Routines WHERE RoutineCreator = AccessID OR EXISTS (SELECT * FROM Trusted WHERE Trusted.TrustedID = Routines.RoutineCreator) ORDER BY RoutineCreator ASC, RoutineName ASC;
+END\\
 
 #Creates a routine in the routine table with the given info.
 #Also creates the appropriate links in the routine_workout
