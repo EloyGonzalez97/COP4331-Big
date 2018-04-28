@@ -181,7 +181,15 @@ END \\
 #returns all of the workouts
 CREATE PROCEDURE webalex_SwoleAF.GetWorkouts()
 BEGIN
-	SELECT * FROM webalex_SwoleAF.Workouts ORDER BY WorkoutMuscleGroup ASC, WorkoutName ASC;
+	SELECT 
+		WorkoutID, 
+		MuscleGroupLookup.MuscleGroupName, 
+		WorkoutName, 
+		WorkoutDescription,
+		W_ImageAddress 
+	FROM webalex_SwoleAF.Workouts 
+	JOIN webalex_SwoleAF.MuscleGroupLookup ON MuscleGroupLookup.MuscleGroupID = Workouts.WorkoutMuscleGroup 
+	ORDER BY WorkoutMuscleGroup ASC, WorkoutName ASC;
 END \\
 
 #creates a workout based on the given info
@@ -279,15 +287,16 @@ BEGIN
         RoutineDifficulty, 
         Workouts.WorkoutID, 
         WorkoutName, 
-        WorkoutMuscleGroup, 
+        MuscleGroupLookup.MuscleGroupName, 
         Reps, 
         Weight, 
         WorkoutDescription, 
         W_ImageAddress 
         FROM User_Routine 
-			JOIN Routines ON User_Routine.RoutineID = Routines.RoutineID
-			JOIN Routine_Workout ON Routines.RoutineID = Routine_Workout.RoutineID
-			JOIN Workouts ON Routine_Workout.WorkoutID = Workouts.WorkoutID
+		JOIN Routines ON User_Routine.RoutineID = Routines.RoutineID
+		JOIN Routine_Workout ON Routines.RoutineID = Routine_Workout.RoutineID
+		JOIN Workouts ON Routine_Workout.WorkoutID = Workouts.WorkoutID
+            JOIN MuscleGroupLookup ON Workouts.WorkoutMuscleGroup = MuscleGroupLookup.MuscleGroupID
 	WHERE UserID = AccessID
     ORDER BY Weekday ASC;
 END \\
