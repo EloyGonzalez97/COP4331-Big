@@ -16,11 +16,13 @@
 # AddWorkout(MuscleGroup, Name, Full Description, Location of Reference Image)
 # RemoveWorkout(WorkoutID)
 # GetWorkouts()
+# WorkoutLookup(WorkoutID)
 # AddRoutine(Name, Full Description, Difficulty, ID of Creator)
 # DefineRoutine(RoutineID, WorkoutID, Reps, Weight)
 # RemoveFromRoutine(RoutineID, WorkoutID, Reps, Weight)
 # RemoveRoutine(RoutineID)
 # GetRoutines(UserID)
+# GetPublicRoutines()
 # AddWeeklySchedule(UserID, RoutineID, Weekday, Time)
 # RemoveWeeklySchedule(UserID, RoutineId, Day of the week)
 # GetWeeklySchedule(UserID) 
@@ -221,12 +223,22 @@ BEGIN
 	DELETE FROM webalex_SwoleAF.Workouts WHERE WorkoutID = DropID;
 END \\
 
+CREATE PROCEDURE webalex_SwoleAF.WorkoutLookup(IN WorkoutName_Input VARCHAR(45))
+BEGIN
+	SELECT WorkoutID FROM Workouts WHERE WorkoutName = WorkoutName_Input;
+END \\
+
 #Retrieves any routines created by the user or anyone that is
 #found in the trusted table.
 CREATE PROCEDURE webalex_SwoleAF.GetRoutines(IN AccessID INT)
 BEGIN
 	SELECT * FROM webalex_SwoleAF.Routines WHERE RoutineCreator = AccessID OR EXISTS (SELECT * FROM Trusted WHERE Trusted.TrustedID = Routines.RoutineCreator) ORDER BY RoutineCreator ASC, RoutineName ASC;
 END\\
+
+CREATE PROCEDURE webalex_SwoleAF.GetPublicRoutines()
+BEGIN
+	SELECT * FROM webalex_SwoleAF.Routines WHERE EXISTS (SELECT * FROM Trusted WHERE Trusted.TrustedID = Routines.RoutineCreator) ORDER BY RoutineCreator ASC, RoutineName ASC;
+END \\
 
 #Creates a routine in the routine table with the given info.
 CREATE PROCEDURE webalex_SwoleAF.AddRoutine(
