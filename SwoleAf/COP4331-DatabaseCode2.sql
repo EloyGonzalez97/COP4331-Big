@@ -16,10 +16,12 @@
 # AddWorkout(MuscleGroup, Name, Full Description, Location of Reference Image)
 # RemoveWorkout(WorkoutID)
 # GetWorkouts()
-# *AddRoutine(Name, Full Description, Difficulty, ID of Creator, JSON string)
+# AddRoutine(Name, Full Description, Difficulty, ID of Creator)
+# DefineRoutine(RoutineID, WorkoutID, Weight, Reps)
+# RemoveFromRoutine(RoutineID, WorkoutID, Weight, Reps)
 # RemoveRoutine(RoutineID)
 # GetRoutines(UserID)
-# *AddWeeklySchedule(UserID, JSON string)
+# AddWeeklySchedule(UserID, RoutineID, Weekday, Time)
 # RemoveWeeklySchedule(UserID, RoutineId, Day of the week)
 # GetWeeklySchedule(UserID) 
 
@@ -227,8 +229,6 @@ BEGIN
 END\\
 
 #Creates a routine in the routine table with the given info.
-#Also creates the appropriate links in the routine_workout
-#table using the json input.
 CREATE PROCEDURE webalex_SwoleAF.AddRoutine(
 	IN Name_Input VARCHAR(45),
     IN Description_Input TEXT,
@@ -250,6 +250,7 @@ BEGIN
     SELECT LAST_INSERT_ID();
 END \\
 
+#Adds a set to the routine
 CREATE PROCEDURE webalex_SwoleAF.DefineRoutine(
 	IN RoutineID_Input INT,
     IN WorkoutID_Input INT,
@@ -267,6 +268,20 @@ BEGIN
         Reps_Input,
         Weights_Input
     );
+END \\
+
+#removes a set from the routine
+CREATE PROCEDURE webalex_SwoleAF.RemoveFromRoutine(
+	IN RoutineID_Input INT,
+    IN WorkoutID_Input INT,
+    IN Reps_Input INT,
+    IN Weights_Input INT)
+BEGIN
+	DELETE FROM Routine_Workout 
+    	WHERE RoutineID = RoutineID_Input AND
+        	WorkoutID = WorkoutID_Input AND
+            Weight = Weight_Input AND
+            Reps = Reps_Input;
 END \\
 
 #removes a routine from the routine table
