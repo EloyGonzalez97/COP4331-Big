@@ -90,6 +90,7 @@ CREATE TABLE IF NOT EXISTS webalex_SwoleAF.Routine_Workout
 	WorkoutID INT,
 	Reps SMALLINT NOT NULL,
 	Weight SMALLINT,
+	Sets SMALLINT,
     FOREIGN KEY(RoutineID) REFERENCES Routines(RoutineID) ON DELETE CASCADE,
 	FOREIGN KEY(WorkoutID) REFERENCES Workouts(WorkoutID) ON DELETE CASCADE
 );
@@ -267,18 +268,21 @@ CREATE PROCEDURE webalex_SwoleAF.DefineRoutine(
 	IN RoutineID_Input INT,
     IN WorkoutID_Input INT,
     IN Reps_Input INT,
-    IN Weights_Input INT)
+    IN Weights_Input INT,
+	IN Sets_Input INT)
 BEGIN
 	INSERT INTO webalex_SwoleAF.Routine_Workout(
 		RoutineID,
         WorkoutID,
         Reps,
-        Weight
+        Weight,
+	Sets
     )VALUES(
 		RoutineID_Input,
         WorkoutID_Input,
         Reps_Input,
-        Weights_Input
+        Weights_Input,
+	Sets_Input
     );
 END \\
 
@@ -287,13 +291,15 @@ CREATE PROCEDURE webalex_SwoleAF.RemoveFromRoutine(
 	IN RoutineID_Input INT,
     IN WorkoutID_Input INT,
     IN Reps_Input INT,
-    IN Weights_Input INT)
+    IN Weights_Input INT,
+	IN Sets_Input INT)
 BEGIN
 	DELETE FROM Routine_Workout 
     	WHERE RoutineID = RoutineID_Input AND
         	WorkoutID = WorkoutID_Input AND
             Weight = Weight_Input AND
-            Reps = Reps_Input;
+            Reps = Reps_Input AND
+	    Sets = Sets_Input;
 END \\
 
 #removes a routine from the routine table
@@ -317,6 +323,7 @@ BEGIN
         MuscleGroupLookup.MuscleGroupName, 
         Reps, 
         Weight, 
+	Sets,
         WorkoutDescription, 
         W_ImageAddress 
         FROM User_Routine 
