@@ -5,9 +5,10 @@
       $username = $_POST['loginUser']; //get input text
       $password = $_POST['passLogin']; //get input text
       $user = User::withLogin($username, md5($password));
-        echo var_dump($_SESSION['user']);    
-        if($_SESSION['user'] !== null){
-            header("Location: http://COP4331.hosted.nfoservers.com/main/main.html");
+        if( $user >= 0){
+             session_start();
+             $_SESSION['user'] = $user;
+             header("Location: http://COP4331.hosted.nfoservers.com/main/main.php");
         }
     } 
     else if(isset($_POST['signBtn'])){
@@ -19,7 +20,7 @@
         $user = User::withSignup($userName, $email, $firstName, $email, md5($pass));
         echo var_dump($_SESSION['user']);   
         if($_SESSION['user'] !== null){
-            header("Location: http://COP4331.hosted.nfoservers.com/main/main.html");
+            header("Location: http://COP4331.hosted.nfoservers.com/main/main.php");
         }
     }
 ?>
@@ -36,7 +37,6 @@
     <img src="images/logoW.png" alt = "logo" width="150" height="30" style="margin-top: 5px; margin-left:100px; padding-top: 15px;">
       <button class = "topBtn" onclick="document.getElementById('id01').style.display='block'" type="button">Log In</button>
         <button class = "topBtn" onclick="document.getElementById('id02').style.display='block'" type="button">Sign Up</button>
-        <a href="trainerpage.html">Trainer</a>
     </div>
     
     <section class="introsection">
@@ -79,6 +79,9 @@
                                 <span class="input-group-btn">
                                     <button class="btn" name = "signBtn" type="submit" style = "width: 100%; margin-left: 0;"><span>Sign Up</span></button>
                             </span>
+                            <br>
+                            <br>
+                            <a href = "http://cop4331.hosted.nfoservers.com/SwoleAF%20Terms%20and%20Conditions.pdf"> By Signing up you agree to the Terms of Use</a>
                             </div>
                             </div>  
                         </div>

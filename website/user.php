@@ -29,33 +29,25 @@
 		}
 
 		public static function withSignup($username, $email, $firstname, $lastname, $password) {
-			$instance = new self();
+			$instance = new self($db);
 			$db = $instance->connect();
 
 			$instance->signup($db, $username, $email, $firstname, $lastname, $password);
-
-
+			$instance->login($db, $username, $password);
 
 			return $instance;
 		}
 
 		public function login($db, $username, $password) {
-			
-			
-			
-			$response = array("error" => FALSE);
 			$sql = "CALL Login('" . $username . "','" . $password . "')";
 			$result = mysqli_query($db, $sql);
 
       		if($result->num_rows > 0) {
-				
 				$row = $result->fetch_assoc();
 				$id = $row["UserID"];
 				echo $id;
 				session_start();
 				$_SESSION['user'] = $id;
-				
-				
         		
 			} 
 		}	
@@ -63,16 +55,9 @@
 		public function signup($db, $username, $email, $firstname, $lastname, $password) {
 			$sql = "CALL CreateUser('" . $username . "','" . $email . "',
 			'" . $firstname . "','" . $lastname . "','" . $password . "')";
-			$result = mysqli_query($db, $sql);
-
-			if($result->num_rows > 0) {
-				$row = $result->fetch_assoc();
-				$id = $row["GeneratedID"];
-				echo $id;
-				session_start();
-				$_SESSION['user'] = $id;
-			} 
-
+			if(mysqli_query($db, $sql)) {
+				echo "NICE";
+			}
 		}
 	}
 ?>
