@@ -233,8 +233,25 @@ END \\
 #found in the trusted table.
 CREATE PROCEDURE webalex_SwoleAF.GetRoutines(IN AccessID INT)
 BEGIN
-	SELECT * FROM webalex_SwoleAF.Routines WHERE RoutineCreator = AccessID OR EXISTS (SELECT * FROM Trusted WHERE Trusted.TrustedID = Routines.RoutineCreator) ORDER BY RoutineCreator ASC, RoutineName ASC;
-END\\
+	SELECT Routines.RoutineID, 
+	Routines.RoutineName, 
+	Routines.RoutineDescription, 
+	Routines.RoutineDifficulty, 
+	Routines.RoutineCreator, 
+	Routine_Workout.WorkoutID, 
+	Workouts.WorkoutName, 
+	MuscleGroupLookup.MuscleGroupName, 
+	Routine_Workout.Reps, 
+	Routine_Workout.Weight, 
+	Routine_Workout.Sets 
+	FROM webalex_SwoleAF.Routines 
+		JOIN Routine_Workout ON Routines.RoutineID = Routine_Workout.RoutineID 
+		JOIN Workouts ON Routine_Workout.WorkoutID = Workouts.WorkoutID 
+		JOIN MuscleGroupLookup on MuscleGroupLookup.MuscleGroupID = Workouts.WorkoutMuscleGroup 
+	WHERE AccessID = Routines.RoutineCreator 
+	OR EXISTS (SELECT * FROM Trusted WHERE Trusted.TrustedID = Routines.RoutineCreator) 
+	ORDER BY RoutineCreator ASC, RoutineName ASC;
+END \\
 
 CREATE PROCEDURE webalex_SwoleAF.GetPublicRoutines()
 BEGIN
